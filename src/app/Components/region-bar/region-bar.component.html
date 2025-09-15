@@ -1,0 +1,31 @@
+<div class="relative w-[200px]">
+  <div
+    class="w-full h-14 flex items-center justify-between px-6 py-5 bg-primary rounded-lg cursor-pointer"
+    (click)="onDisplay()"
+  >
+    <span class="text-[14px]/7 tracking-tighter text-text">
+      {{ selectedRegion() }}
+    </span>
+    <span
+      class="material-icons-outlined text-text transition-transform duration-300"
+      [class.rotate-180]="display()"
+    >
+      expand_more
+    </span>
+  </div>
+
+  @if(display()){
+  <div
+    class="absolute top-full mt-2 left-0 w-full bg-primary rounded-lg shadow-2xl/20 z-50 px-6 py-4"
+  >
+    @for(region of regions; track $index){
+    <p
+      class="text-[14px]/7 tracking-tighter text-text hover:tracking-wide hover:backdrop-opacity-95 cursor-pointer transition-all"
+      (click)="onChange(region)"
+    >
+      {{ region }}
+    </p>
+    }
+  </div>
+  }
+</div>

@@ -1,0 +1,196 @@
+<header class="w-full h-20 bg-primary grid fixed top-0 left-0 ring-0 z-20">
+  <nav class="container mx-auto px-6 flex items-center justify-between">
+    @if(pageLoad.isPageLoad()){
+    <h2 class="w-40 h-4 bg-gray-200 rounded-full animate-pulse"></h2>
+    <div class="flex space-x-4 lg:space-x-10 items-center animate-pulse">
+        <div class="bg-gray-200 w-32 h-4 rounded-full"></div>
+        <div class="bg-gray-200 w-14 h-14 rounded-full"></div>
+    </div>
+    }@else {
+    <h2 class="text-[15px]/7 md:text-2xl tracking-tighter font-semibold">
+      Where in the world?
+    </h2>
+    <div class="flex space-x-4 lg:space-x-10 items-center">
+      <app-button />
+      @if(authService.isLoggedIn()){
+      <div
+        class="w-14 h-14 rounded-full bg-bg flex items-center justify-center cursor-pointer"
+        title="Logout"
+        (click)="onLogout()"
+      >
+        <span class="material-icons-outlined"> logout </span>
+      </div>
+      }
+    </div>
+    }
+  </nav>
+</header>
+
+<div class="py-28 container mx-auto">
+  @if(isLoading()){
+  <section class="py-16 overflow-auto animate-pulse">
+    <button class="bg-gray-200 w-36 h-12 rounded-full"></button>
+    <div
+      class="mt-20 w-full flex md:items-center items-start flex-col md:flex-row gap-11 md:gap-48"
+    >
+      <div
+        class="bg-sec w-full aspect-[4/3] md:flex-1 md:h-[400px] rounded-xl overflow-hidden relative bg-gray-200"
+      ></div>
+      <div class="flex-1 w-full">
+        <h3 class="bg-gray-200 h-4 w-[55%] rounded-full mb-6"></h3>
+        <!-- Details info section -->
+        <div
+          class="w-full flex items-start flex-col md:flex-row justify-between gap-30"
+        >
+          <div class="flex flex-col gap-2 w-1/2">
+            <div class="flex items-center gap-2">
+              <div class="bg-gray-200 h-4 w-[40%] rounded-full"></div>
+              <div class="bg-gray-200 h-4 w-[60%] rounded-full"></div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="bg-gray-200 h-4 w-[40%] rounded-full"></div>
+              <div class="bg-gray-200 h-4 w-[60%] rounded-full"></div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="bg-gray-200 h-4 w-[40%] rounded-full"></div>
+              <div class="bg-gray-200 h-4 w-[60%] rounded-full"></div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="bg-gray-200 h-4 w-[40%] rounded-full"></div>
+              <div class="bg-gray-200 h-4 w-[60%] rounded-full"></div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="bg-gray-200 h-4 w-[40%] rounded-full"></div>
+              <div class="bg-gray-200 h-4 w-[60%] rounded-full"></div>
+            </div>
+          </div>
+          <div class="w-1/2 flex flex-col gap-2">
+            <div class="flex items-center gap-2">
+              <div class="bg-gray-200 h-4 w-[40%] rounded-full"></div>
+              <div class="bg-gray-200 h-4 w-[60%] rounded-full"></div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="bg-gray-200 h-4 w-[40%] rounded-full"></div>
+              <div class="bg-gray-200 h-4 w-[60%] rounded-full"></div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="bg-gray-200 h-4 w-[40%] rounded-full"></div>
+              <div class="bg-gray-200 h-4 w-[60%] rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Border section -->
+        <div class="mt-16 tracking-tighter flex items-center gap-3">
+          <div class="bg-gray-200 h-12 w-[30%] rounded-full"></div>
+          @for(border of [1,2,3]; track border){
+          <button class="bg-gray-200 h-12 w-[20%] rounded-full"></button>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+  }@else if (error()) {
+  <p>{{ error() }}</p>
+  }@else {
+  <section class="py-16 overflow-auto">
+    <button
+      class="bg-sec text-text rounded-xl px-8 py-3 flex items-center gap-2 cursor-pointer"
+      (click)="goToBack()"
+    >
+      <span class="material-icons-outlined text-text">
+        keyboard_backspace
+      </span>
+      <span>Back</span>
+    </button>
+    <div
+      class="mt-20 w-full flex md:items-center items-start flex-col md:flex-row gap-11 md:gap-48"
+    >
+      <div
+        class="bg-sec w-full aspect-[4/3] md:flex-1 md:h-[400px] rounded-xl overflow-hidden relative"
+      >
+        <img
+          [src]="country()?.flags?.svg"
+          [alt]="country()?.flags?.alt || country()?.name?.common + ' flag'"
+          class="absolute inset-0 w-full h-full object-cover object-center"
+        />
+      </div>
+      <div class="flex-1 w-full">
+        <h3 class="text-3xl/7 tracking-tighter mb-6 font-semibold">
+          {{ country()?.name?.common }}
+        </h3>
+        <!-- Details info section -->
+        <div
+          class="w-full flex items-start flex-col md:flex-row justify-between"
+        >
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2 text-base/7 tracking-tighter">
+              <p class="">Native Name:</p>
+              <span class="text-text/70">{{ country()?.name?.common }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-base/7 tracking-tighter">
+              <p class="">Population:</p>
+              <span class="text-text/70">{{
+                country()?.population | number
+              }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-base/7 tracking-tighter">
+              <p class="">Region:</p>
+              <span class="text-text/70">{{ country()?.region }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-base/7 tracking-tighter">
+              <p class="">Sub Region:</p>
+              <span class="text-text/70">{{ country()?.subregion }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-base/7 tracking-tighter">
+              <p class="">Capital:</p>
+              <span class="text-text/70">{{
+                country()?.capital?.join(",")
+              }}</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 text-base/7 tracking-tighter">
+              <p class="">Top Level Domain:</p>
+              <span class="text-text/70">{{ country()?.tld?.join(", ") }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-base/7 tracking-tighter">
+              <p class="">Currencies:</p>
+              @for (currency of Object.values(country()?.currencies || {});
+              track $index) {
+              <span class="text-text/70">
+                {{ currency.name }} ({{ currency.symbol }})
+              </span>
+              }
+            </div>
+            <div class="flex items-center gap-2 text-base/7 tracking-tighter">
+              <p class="">Languages:</p>
+              @for (language of Object.values(country()?.languages || {}); track
+              $index) {
+              <span class="text-text/70">
+                {{ language }}
+              </span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Border section -->
+        @if(borders().length){
+        <div class="mt-16 tracking-tighter flex items-center gap-3 flex-wrap">
+          <p>Border Countries:</p>
+          @for(border of borders(); track $index){
+          <button
+            class="bg-primary px-7 py-2 text-[13px] cursor-pointer hover:tracking-wider transition-all duration-200"
+            (click)="navigateToDetail(border.cca3)"
+          >
+            {{ border.name.common }}
+          </button>
+          }
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+  }
+</div>

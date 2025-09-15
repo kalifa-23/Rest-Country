@@ -1,0 +1,11 @@
+<button
+  (click)="theme.toggleTheme()"
+  class="flex items-center justify-center gap-2 cursor-pointer text-xs/7 md:text-base/7"
+>
+  <span class="material-icons-outlined">
+    {{ theme.darkMode() ? "light_mode" : "dark_mode" }}
+  </span>
+  <p class="text-xs/7 md:text-base/7 tracking-tighter capitalize">
+    {{ theme.darkMode() ? "Light Mode" : "Dark Mode" }}
+  </p>
+</button>

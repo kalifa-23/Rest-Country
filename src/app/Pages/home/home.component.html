@@ -1,0 +1,85 @@
+<header
+  class="w-full h-20 bg-primary grid fixed top-0 left-0 ring-0 z-20 shadow-2xl/5"
+>
+  <nav class="container mx-auto px-6 flex items-center justify-between ">
+    @if(pageLoad.isPageLoad()){
+    <h2 class="w-40 h-4 bg-gray-200 rounded-full animate-pulse"></h2>
+    <div class="flex space-x-4 lg:space-x-10 items-center animate-pulse">
+        <div class="bg-gray-200 w-32 h-4 rounded-full"></div>
+        <div class="bg-gray-200 w-14 h-14 rounded-full"></div>
+    </div>
+    }@else {
+    <h2 class="text-[15px]/7 md:text-2xl tracking-tighter font-semibold">
+      Where in the world?
+    </h2>
+    <div class="flex space-x-4 lg:space-x-10 items-center">
+      <app-button />
+      @if(authService.isLoggedIn()){
+      <div
+        class="w-14 h-14 rounded-full bg-bg flex items-center justify-center cursor-pointer"
+        title="Logout"
+        (click)="onLogout()"
+      >
+        <span class="material-icons-outlined"> logout </span>
+      </div>
+      }
+    </div>
+    }
+  </nav>
+</header>
+
+<section class="py-26 bg-bg">
+  <div
+    class="w-full container mx-auto px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+  >
+    <app-search-bar (search)="onSearch($event)" />
+    <app-region-bar (selectRegion)="onRegionSelect($event)" />
+  </div>
+
+  <div
+    class="w-full my-14 container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-16"
+  >
+    @if(isLoading()) { @for(i of [1,2,3,4,5,6,7,8]; track i){
+    <div class="animate-pulse mb-4 bg-primary rounded-xl">
+      <div class="w-full aspect-video bg-gray-200 rounded-xl"></div>
+      <div class="p-6 space-y-4">
+        <div class="w-4/5 h-4 bg-gray-200 rounded-full"></div>
+        <div class="w-[65%] flex items-center gap-2">
+          <div class="w-1/4 h-4 bg-gray-200 rounded-full"></div>
+          <div class="w-3/4 h-4 bg-gray-200 rounded-full"></div>
+        </div>
+        <div class="w-[65%] flex items-center gap-2">
+          <div class="w-1/4 h-4 bg-gray-200 rounded-full"></div>
+          <div class="w-3/4 h-4 bg-gray-200 rounded-full"></div>
+        </div>
+        <div class="w-[65%] flex items-center gap-2">
+          <div class="w-1/4 h-4 bg-gray-200 rounded-full"></div>
+          <div class="w-3/4 h-4 bg-gray-200 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+    } } @else if(errorMsg()) {
+    <div class="flex justify-center items-center min-h-[200px] col-span-full">
+      <p class="text-red-500">{{ errorMsg() }}</p>
+    </div>
+    } @else if(filteredCountries().length) { @for (country of
+    filteredCountries(); track country.cca3) {
+    <app-country-card [country]="country" />
+    } } @else {
+    <div
+      class="col-span-full text-center flex flex-col items-center justify-center mt-20"
+    >
+      <div class="flex justify-center">
+        <img src="find.png" alt="No result" class="max-w-[200px] mb-4" />
+      </div>
+      <h2 class="text-2xl tracking-tighter font-semibold mb-2">
+        No Search Found!
+      </h2>
+      <p class="text-text/50 text-[15px] max-w-[300px] tracking-tighter">
+        We searched all the countries but didn’t find any match. You can search
+        again
+      </p>
+    </div>
+    }
+  </div>
+</section>

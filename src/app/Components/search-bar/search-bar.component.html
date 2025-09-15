@@ -1,0 +1,13 @@
+<div class="bg-primary w-full md:w-md h-14 flex items-center gap-4 px-8 rounded-lg ">
+  <i
+    class="material-icons-outlined text-text transition-colors duration-200"
+  >
+    search
+  </i>
+  <input
+    type="text"
+    placeholder="Search for a country..."
+    class="w-full outline-0 border-0 text-text placeholder:text-text text-[12px]/7 md:text-base/7 placeholder:tracking-tighter"
+    (input)="onInput($event)"
+  />
+</div>
