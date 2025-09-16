@@ -8,11 +8,12 @@ import { ButtonComponent } from '../../Components/button/button.component';
 import { AuthService } from '../../Services/auth.service';
 import { PageloadService } from '../../pageload.service';
 import {  Subscription } from 'rxjs';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, DecimalPipe, ButtonComponent],
+  imports: [CommonModule, DecimalPipe, NavbarComponent],
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })
@@ -29,17 +30,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private countryService: CountriesService,
     private location: Location,
-    public authService: AuthService,
     private router: Router,
   ) {}
   
   private subscription!: Subscription
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.pageLoad.isPageLoad.set(false);
-    }, 700);
-
     this.route.paramMap.subscribe((params) => {
       const countryCode = params.get('countryId');
       if (countryCode) {
@@ -85,10 +81,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/details', code]);
   }
 
-  onLogout() {
-    this.authService.logOut();
-    this.router.navigateByUrl('/login');
-  }
 
   ngOnDestroy(): void {
      if(this.subscription){

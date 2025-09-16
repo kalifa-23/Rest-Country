@@ -1,37 +1,10 @@
-<header class="w-full h-20 bg-primary grid fixed top-0 left-0 ring-0 z-20">
-  <nav class="container mx-auto px-6 flex items-center justify-between">
-    @if(pageLoad.isPageLoad()){
-    <h2 class="w-40 h-4 bg-gray-200 rounded-full animate-pulse"></h2>
-    <div class="flex space-x-4 lg:space-x-10 items-center animate-pulse">
-        <div class="bg-gray-200 w-32 h-4 rounded-full"></div>
-        <div class="bg-gray-200 w-14 h-14 rounded-full"></div>
-    </div>
-    }@else {
-    <h2 class="text-[15px]/7 md:text-2xl tracking-tighter font-semibold">
-      Where in the world?
-    </h2>
-    <div class="flex space-x-4 lg:space-x-10 items-center">
-      <app-button />
-      @if(authService.isLoggedIn()){
-      <div
-        class="w-14 h-14 rounded-full bg-bg flex items-center justify-center cursor-pointer"
-        title="Logout"
-        (click)="onLogout()"
-      >
-        <span class="material-icons-outlined"> logout </span>
-      </div>
-      }
-    </div>
-    }
-  </nav>
-</header>
-
-<div class="py-28 container mx-auto">
+<app-navbar />
+<div class="py-8 md:py-28 container mx-auto px-6">
   @if(isLoading()){
   <section class="py-16 overflow-auto animate-pulse">
     <button class="bg-gray-200 w-36 h-12 rounded-full"></button>
     <div
-      class="mt-20 w-full flex md:items-center items-start flex-col md:flex-row gap-11 md:gap-48"
+      class="mt-6 md:mt-20 w-full flex md:items-center items-start flex-col md:flex-row gap-11 md:gap-48"
     >
       <div
         class="bg-sec w-full aspect-[4/3] md:flex-1 md:h-[400px] rounded-xl overflow-hidden relative bg-gray-200"
@@ -95,7 +68,7 @@
   }@else {
   <section class="py-16 overflow-auto">
     <button
-      class="bg-sec text-text rounded-xl px-8 py-3 flex items-center gap-2 cursor-pointer"
+      class="bg-primary text-text rounded-xl px-8 py-3 flex items-center gap-2 cursor-pointer"
       (click)="goToBack()"
     >
       <span class="material-icons-outlined text-text">
@@ -104,7 +77,7 @@
       <span>Back</span>
     </button>
     <div
-      class="mt-20 w-full flex md:items-center items-start flex-col md:flex-row gap-11 md:gap-48"
+      class="mt-6 md:mt-20 w-full flex md:items-center items-start flex-col md:flex-row gap-11 md:gap-48"
     >
       <div
         class="bg-sec w-full aspect-[4/3] md:flex-1 md:h-[400px] rounded-xl overflow-hidden relative"

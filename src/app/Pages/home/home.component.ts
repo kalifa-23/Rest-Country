@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { Country } from '../../Interface/country';
 import { ButtonComponent } from '../../Components/button/button.component';
 import { CountriesService } from '../../Services/countries.service';
@@ -9,23 +16,16 @@ import { AuthService } from '../../Services/auth.service';
 import { Router } from '@angular/router';
 import { PageloadService } from '../../pageload.service';
 import { Subscription } from 'rxjs';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-home',
-  imports: [
-    ButtonComponent,
-    CountryCardComponent,
-    RegionBarComponent,
-    SearchBarComponent,
-  ],
+  imports: [CountryCardComponent, RegionBarComponent, SearchBarComponent, NavbarComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   countryServices = inject(CountriesService);
-  authService = inject(AuthService);
-  router = inject(Router);
-  pageLoad = inject(PageloadService);
 
   countries = signal<Country[]>([]);
   isLoading = signal<boolean>(false);
@@ -52,10 +52,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.pageLoad.isPageLoad.set(false);
-    }, 700);
-
     this.isLoading.set(true);
     this.subscription = this.countryServices.getAllCountry().subscribe({
       next: (data) => {
@@ -78,14 +74,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.region.set(region);
   }
 
-  onLogout() {
-    this.authService.logOut();
-    this.router.navigateByUrl('/login');
-  }
-
   ngOnDestroy(): void {
-      if(this.subscription){
-        this.subscription.unsubscribe();
-      }
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
