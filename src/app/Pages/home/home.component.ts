@@ -20,7 +20,12 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CountryCardComponent, RegionBarComponent, SearchBarComponent, NavbarComponent],
+  imports: [
+    CountryCardComponent,
+    RegionBarComponent,
+    SearchBarComponent,
+    NavbarComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })

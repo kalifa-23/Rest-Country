@@ -32,7 +32,7 @@
     </p>
 
     <form
-      [formGroup]="loginForms"
+      [formGroup]="signForm"
       class="flex flex-col gap-4 w-full max-w-md items-center text-gray-500"
       (ngSubmit)="onLogin()"
     >
@@ -40,8 +40,8 @@
       <div
         class="w-full border border-gray-300 rounded-full h-12 md:h-16 flex items-center px-5 gap-3"
         [class.border-red-500]="
-          loginForms.get('username')?.invalid &&
-          loginForms.get('username')?.touched
+         signForm.get('username')?.invalid &&
+         signForm.get('username')?.touched
         "
       >
         <i class="material-icons-outlined text-gray-400">face</i>
@@ -52,8 +52,8 @@
           class="flex-1 outline-0 placeholder:text-gray-400/20 placeholder:tracking-tighter"
         />
       </div>
-      @if(loginForms.get('username')?.invalid &&
-      loginForms.get('username')?.touched){
+      @if(signForm.get('username')?.invalid &&
+     signForm.get('username')?.touched){
       <p class="w-full text-xs text-gray-400/80">
         Username is required (min 3 characters)
       </p>
@@ -63,8 +63,8 @@
       <div
         class="w-full border border-gray-300 rounded-full h-12 md:h-16 flex items-center px-5 gap-3"
         [class.border-red-500]="
-          loginForms.get('password')?.invalid &&
-          loginForms.get('password')?.touched
+         signForm.get('password')?.invalid &&
+         signForm.get('password')?.touched
         "
       >
         <span class="material-icons-outlined text-gray-400">lock</span>
@@ -81,8 +81,8 @@
           {{ isVisible() ? "visibility" : "visibility_off" }}
         </span>
       </div>
-      @if(loginForms.get('password')?.invalid &&
-      loginForms.get('password')?.touched){
+      @if(signForm.get('password')?.invalid &&
+     signForm.get('password')?.touched){
       <p class="w-full text-xs text-gray-400/80">
         Password is required (min 6 characters).
       </p>
@@ -92,10 +92,11 @@
       <button
         type="submit"
         class="bg-black text-white h-12 md:h-16 rounded-full tracking-tighter cursor-pointer w-full disabled:opacity-50 disabled:cursor-not-allowed"
-        [disabled]="loginForms.invalid"
+        [disabled]="signForm.invalid"
       >
         Login
       </button>
     </form>
   </div>
 </main>
+
