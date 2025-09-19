@@ -1,28 +1,28 @@
 <main
-  class="bg-white w-full min-h-screen flex flex-col lg:flex-row overflow-x-hidden"
+  class="bg-white w-full min-h-screen flex flex-col lg:flex-row overflow-x-hidden gap-y-2"
 >
   <!-- Left side -->
   <div
-    class="w-full lg:w-1/2 bg-blue-50 flex flex-col items-center justify-center h-auto min-h-[150px]"
+    class="w-full lg:w-1/2 bg-blue-50 flex flex-col items-center justify-center h-auto min-h-[150px] rounded-b-4xl md:rounded-b-none"
   >
     <img
       src="World.svg"
       alt=""
-      class="w-full max-w-xs md:max-w-md lg:max-w-lg object-contain"
+      class="w-full max-w-xs md:max-w-md lg:max-w-lg object-cover object-center"
     />
     <h1
-      class="text-2xl md:text-4xl bg-gradient-to-r from-gray-800 to-gray-400 bg-clip-text text-transparent tracking-tighter font-semibold"
+      class="text-2xl md:text-4xl bg-gradient-to-r from-gray-800 to-gray-400 bg-clip-text text-transparent tracking-tighter font-semibold mb-4 hidden"
     >
       Rest Countries Explorer
     </h1>
   </div>
 
   <!-- Right side -->
-  <div class="w-full lg:w-1/2 flex flex-col items-center justify-center px-4">
+  <div class="w-full flex-1 lg:w-1/2 flex flex-col items-center justify-center px-4">
     <h2
       class="text-3xl md:text-5xl tracking-tighter text-gray-900 mb-4 font-medium"
     >
-      Welcome back!
+      Get Started
     </h2>
     <p
       class="text-gray-400 max-w-md w-full text-xs md:text-[15px] mb-10 tracking-tighter text-center"
@@ -34,26 +34,48 @@
     <form
       [formGroup]="signForm"
       class="flex flex-col gap-4 w-full max-w-md items-center text-gray-500"
-      (ngSubmit)="onLogin()"
+      (ngSubmit)="onSignup()"
     >
       <!-- Username -->
       <div
         class="w-full border border-gray-300 rounded-full h-12 md:h-16 flex items-center px-5 gap-3"
         [class.border-red-500]="
-         signForm.get('username')?.invalid &&
-         signForm.get('username')?.touched
+          signForm.get('username')?.invalid && signForm.get('username')?.touched
         "
       >
         <i class="material-icons-outlined text-gray-400">face</i>
         <input
           type="text"
           placeholder="Username"
+          name="username"
           formControlName="username"
           class="flex-1 outline-0 placeholder:text-gray-400/20 placeholder:tracking-tighter"
         />
       </div>
       @if(signForm.get('username')?.invalid &&
-     signForm.get('username')?.touched){
+      signForm.get('username')?.touched){
+      <p class="w-full text-xs text-gray-400/80">
+        Username is required (min 3 characters)
+      </p>
+      }
+      <!-- Email -->
+
+      <div
+        class="w-full border border-gray-300 rounded-full h-12 md:h-16 flex items-center px-5 gap-3"
+        [class.border-red-500]="
+          signForm.get('email')?.invalid && signForm.get('email')?.touched
+        "
+      >
+        <i class="material-icons-outlined text-gray-400">face</i>
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          formControlName="email"
+          class="flex-1 outline-0 placeholder:text-gray-400/20 placeholder:tracking-tighter"
+        />
+      </div>
+      @if(signForm.get('email')?.invalid && signForm.get('email')?.touched){
       <p class="w-full text-xs text-gray-400/80">
         Username is required (min 3 characters)
       </p>
@@ -63,14 +85,14 @@
       <div
         class="w-full border border-gray-300 rounded-full h-12 md:h-16 flex items-center px-5 gap-3"
         [class.border-red-500]="
-         signForm.get('password')?.invalid &&
-         signForm.get('password')?.touched
+          signForm.get('password')?.invalid && signForm.get('password')?.touched
         "
       >
         <span class="material-icons-outlined text-gray-400">lock</span>
         <input
           [type]="isVisible() ? 'text' : 'password'"
           placeholder="Password"
+          name="password"
           formControlName="password"
           class="flex-1 outline-0 placeholder:text-gray-400/20 placeholder:tracking-tighter"
         />
@@ -82,7 +104,7 @@
         </span>
       </div>
       @if(signForm.get('password')?.invalid &&
-     signForm.get('password')?.touched){
+      signForm.get('password')?.touched){
       <p class="w-full text-xs text-gray-400/80">
         Password is required (min 6 characters).
       </p>
@@ -94,9 +116,9 @@
         class="bg-black text-white h-12 md:h-16 rounded-full tracking-tighter cursor-pointer w-full disabled:opacity-50 disabled:cursor-not-allowed"
         [disabled]="signForm.invalid"
       >
-        Login
+        Signup
       </button>
     </form>
+    <p class="mt-4 text-[14px] text-gray-500 tracking-tighter">Already have an account? <span (click)="router.navigateByUrl('/login')" class="text-blue-700 cursor-pointer">Login</span></p>
   </div>
 </main>
-

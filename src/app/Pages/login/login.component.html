@@ -3,7 +3,7 @@
 >
   <!-- Left side -->
   <div
-    class="w-full lg:w-1/2 bg-blue-50 flex flex-col items-center justify-center h-auto min-h-[150px]"
+    class="w-full lg:w-1/2 bg-blue-50 flex flex-col items-center justify-center h-auto min-h-[150px] ounded-b-4xl md:rounded-b-none"
   >
     <img
       src="World.svg"
@@ -11,14 +11,14 @@
       class="w-full max-w-xs md:max-w-md lg:max-w-lg object-contain"
     />
     <h1
-      class="text-2xl md:text-4xl bg-gradient-to-r from-gray-800 to-gray-400 bg-clip-text text-transparent tracking-tighter font-semibold"
+      class="text-2xl md:text-4xl bg-gradient-to-r from-gray-800 to-gray-400 bg-clip-text text-transparent tracking-tighter font-semibold hidden"
     >
       Rest Countries Explorer
     </h1>
   </div>
 
   <!-- Right side -->
-  <div class="w-full lg:w-1/2 flex flex-col items-center justify-center px-4">
+  <div class="w-full flex-1 lg:w-1/2 flex flex-col items-center justify-center px-4">
     <h2
       class="text-3xl md:text-5xl tracking-tighter text-gray-900 mb-4 font-medium"
     >
@@ -48,6 +48,7 @@
         <input
           type="text"
           placeholder="Username"
+          name="username"
           formControlName="username"
           class="flex-1 outline-0 placeholder:text-gray-400/20 placeholder:tracking-tighter"
         />
@@ -71,6 +72,7 @@
         <input
           [type]="isVisible() ? 'text' : 'password'"
           placeholder="Password"
+          name="password"
           formControlName="password"
           class="flex-1 outline-0 placeholder:text-gray-400/20 placeholder:tracking-tighter"
         />
@@ -97,5 +99,6 @@
         Login
       </button>
     </form>
+    <p class="mt-4 text-[14px] text-gray-500 tracking-tighter">Don't have account? <span (click)="router.navigateByUrl('/signup')" class="text-blue-700 cursor-pointer">create</span></p>
   </div>
 </main>

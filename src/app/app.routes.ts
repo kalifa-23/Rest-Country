@@ -4,6 +4,7 @@ import { LoginComponent } from './Pages/login/login.component';
 import { DetailsComponent } from './Pages/details/details.component';
 import { authGuard } from './Guards/auth.guard';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
+import { SignComponent } from './sign/sign.component';
 
 export const routes: Routes = [
     {
@@ -15,6 +16,10 @@ export const routes: Routes = [
         path: 'home',
         component: HomeComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: 'signup',
+        component: SignComponent
     },
     {
         path: 'login',
